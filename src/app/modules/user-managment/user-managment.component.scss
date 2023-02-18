@@ -1,0 +1,20 @@
+.main{
+  width: 100%;
+
+  mat-tab-group{
+    width: 100%;
+
+
+
+    ::ng-deep.mat-tab-label{
+      width: 45% !important;
+      background-color: antiquewhite;
+
+    }
+
+    ::ng-deep.mat-tab-labels {
+      justify-content: space-around;
+
+    }
+  }
+}

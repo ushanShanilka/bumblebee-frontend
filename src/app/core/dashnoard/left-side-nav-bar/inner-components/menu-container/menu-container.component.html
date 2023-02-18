@@ -1,0 +1,40 @@
+<div *ngFor="let menu of Menus; let i=index" style="width: 100%" (mouseover)="navState=true"
+     (mouseleave)="navState=false" >
+
+  <div *ngIf="!isMultiLevel(menu)" style="width: 100%">
+    <div   [routerLink]="menu.url" class="nav-btn">
+      <mat-icon class="nav-btn-icon"  *ngIf="menu">{{menu?.icon}}</mat-icon>
+      <span   >{{menu.menuName}} </span>
+    </div>
+  </div>
+  <!--  (mouseover)="navState=true" (mouseout)="navState=false"-->
+
+
+  <div *ngIf="isMultiLevel(menu)" >
+    <!--    <button [matMenuTriggerFor]="men" mat-menu-item >-->
+    <!--      <mat-icon class="nav-btn-icon" *ngIf="menu.icon">{{menu?.icon}}</mat-icon>-->
+    <!--      {{menu.menuName}}</button>-->
+    <!--    <mat-menu #men="matMenu" xPosition="after" style="margin-left: 100px">-->
+    <!--      <app-menu-container [Menus]="menu.list"></app-menu-container>-->
+    <!--    </mat-menu>-->
+
+
+    <mat-expansion-panel >
+      <mat-expansion-panel-header>
+        <mat-panel-title class="multi-level">
+          <mat-icon class="nav-btn-icon" *ngIf="menu.icon">{{menu?.icon}}</mat-icon>
+          <span>{{menu.menuName}}</span>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <app-menu-container [Menus]="menu.list"></app-menu-container>
+    </mat-expansion-panel>
+
+
+
+
+
+
+  </div>
+</div>
+
+

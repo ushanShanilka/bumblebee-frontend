@@ -1,0 +1,14 @@
+<div class="dashboard" >
+  <mat-sidenav-container  class="left-side-nav" autosize  >
+    <mat-sidenav mode="side" opened="{{navState}}" >
+      <app-menu-container [Menus]="currentMenus" [navState]="navState" ></app-menu-container>
+    </mat-sidenav>
+    <mat-sidenav-content>
+      <api-loading></api-loading>
+      <router-outlet ></router-outlet>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+
+
+
+</div>

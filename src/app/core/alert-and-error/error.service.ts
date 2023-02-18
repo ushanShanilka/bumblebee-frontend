@@ -41,6 +41,7 @@ export class ErrorService {
     // });
   }
   private handle_404(request: any, error: any): void {
+    console.log(error)
 
     if (request.responseType === "arraybuffer") {
       var enc:any = new TextDecoder("utf-8");
@@ -66,6 +67,7 @@ export class ErrorService {
 
   }
   private handle_401(error: any): void {
+    console.log(error)
     this.toasterService.error("Unauthorized Access");
     //
     // this.dialog.open(ApprovalDialogComponent, {

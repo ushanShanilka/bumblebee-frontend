@@ -9,8 +9,6 @@ import {
   HttpSentEvent,
   HttpUserEvent
 } from "@angular/common/http";
-import {ApprovalDialogComponent} from "../dialogs/approval-dialog/approval-dialog.component";
-import {ApprovalDialogConfig} from "../dialogs/approval-dialog/ApprovalDialogConfig";
 
 @Injectable({
   providedIn: 'root'
