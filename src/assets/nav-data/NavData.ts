@@ -24,6 +24,19 @@ export const NavData: MenuDTO[] = [
     menuName: 'Product Management',
     url: '/dashboard/product-management/',
     icon: 'inventory',
-    list: [],
+    list: [
+      {
+        menuName: 'View All',
+        url: '/dashboard/product-management/all',
+        icon: 'visibility',
+        list: [],
+      },
+      {
+        menuName: 'Add',
+        url: '/dashboard/product-management/add',
+        icon: 'add',
+        list: [],
+      },
+    ],
   },
 ];

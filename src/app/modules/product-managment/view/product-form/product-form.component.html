@@ -1,0 +1,140 @@
+<div class="main">
+  <div class="title">
+    <span>{{formMode.slice(0,1)+formMode.slice(1).toLowerCase()}} User</span>
+
+    <div class="button-row">
+      <button *ngIf="formMode==='CREATE'" matTooltip="Save" mat-raised-button type="submit" (click)="onAction()"
+              color="primary"><mat-icon>save</mat-icon>Save</button>
+      <button *ngIf="formMode==='CREATE'" matTooltip="Clear Form" type="reset" (click)="clear()"
+              mat-raised-button><mat-icon>clear_all</mat-icon>Clear</button>
+      <button *ngIf="formMode==='UPDATE'" matTooltip="Update" mat-raised-button type="submit" (click)="onAction()"
+              color="primary"><mat-icon>update</mat-icon>Update</button>
+      <button *ngIf="formMode==='UPDATE'" matTooltip="Cancel" mat-raised-button
+              type="reset"><mat-icon>cancel</mat-icon>Cancel</button>
+
+    </div>
+  </div>
+
+  <div class="main-form">
+    <div class="sec">
+      <div class="left">
+        <div class="sub-menu">
+          <span>Add Images</span>
+          <hr>
+        </div>
+        <div class="row">
+          <div>
+            <div class="img-area tooltip" >
+              <img class="tooltip" width="70%" src="{{preview[0]}}" alt="" (click)="browseFile(0)">
+              <input (change)="uploadFileHandel($event)" value="" type="file" hidden id="fileSelector">
+            </div>
+          </div>
+          <div>
+            <div class="img-area tooltip">
+              <img class="tooltip" width="70%" src="{{preview[1]}}" alt="" (click)="browseFile(1)">
+              <input (change)="uploadFileHandel($event)" value="" type="file" hidden id="fileSelector">
+            </div>
+          </div>
+          <div>
+            <div class="img-area tooltip">
+              <img class="tooltip" width="70%" src="{{preview[2]}}" alt="" (click)="browseFile(2)">
+              <input (change)="uploadFileHandel($event)" value="" type="file" hidden id="fileSelector">
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div>
+            <div class="img-area tooltip" >
+              <img class="tooltip" width="70%" src="{{preview[3]}}" alt="" (click)="browseFile(3)">
+              <input (change)="uploadFileHandel($event)" value="" type="file" hidden id="fileSelector">
+            </div>
+          </div>
+          <div>
+            <div class="img-area tooltip" >
+              <img class="tooltip" width="70%" src="{{preview[4]}}" alt="" (click)="browseFile(4)">
+              <input (change)="uploadFileHandel($event)" value="" type="file" hidden id="fileSelector">
+            </div>
+          </div>
+          <div>
+            <div class="img-area tooltip" >
+              <img class="tooltip" width="70%" src="{{preview[5]}}" alt="" (click)="browseFile(5)">
+              <input (change)="uploadFileHandel($event)" value="" type="file" hidden id="fileSelector">
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div>
+            <div class="img-area tooltip" >
+              <img class="tooltip" width="70%" src="{{preview[6]}}" alt="" (click)="browseFile(6)">
+              <input (change)="uploadFileHandel($event)" value="" type="file" hidden id="fileSelector">
+            </div>
+          </div>
+          <div>
+            <div class="img-area tooltip" >
+              <img class="tooltip" width="70%" src="{{preview[7]}}" alt="" (click)="browseFile(7)">
+              <input (change)="uploadFileHandel($event)" value="" type="file" hidden id="fileSelector">
+            </div>
+          </div>
+          <div>
+            <div class="img-area tooltip" >
+              <img class="tooltip" width="70%" src="{{preview[8]}}" alt="" (click)="browseFile(8)">
+              <input (change)="uploadFileHandel($event)" value="" type="file" hidden id="fileSelector">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="right">
+        <div class="sub-menu">
+          <span>Add Details</span>
+          <hr>
+        </div>
+
+        <div class="row">
+          <form [formGroup]="productForm">
+            <div class="form-row">
+              <mat-form-field appearance="outline">
+                <mat-label>Product Name</mat-label>
+                <input formControlName="productName" matInput placeholder="Ex. Product" value="">
+              </mat-form-field>
+
+              <mat-form-field appearance="outline">
+                <mat-label>QTY</mat-label>
+                <input formControlName="qty" type="number" matInput placeholder="Ex. 100" value="">
+              </mat-form-field>
+            </div>
+
+            <div class="form-row">
+
+              <mat-form-field appearance="outline" class="">
+                <mat-label>Description</mat-label>
+                <textarea formControlName="description" matInput></textarea>
+              </mat-form-field>
+
+            </div>
+
+            <div class="form-row">
+              <mat-form-field appearance="outline">
+                <mat-label>Rating</mat-label>
+                <input formControlName="rating" matInput placeholder="Ex. 0.1" type="number">
+              </mat-form-field>
+
+              <mat-form-field  appearance="outline">
+                <mat-label>Price (LKR)</mat-label>
+                <input formControlName="price" matInput placeholder="Ex. 100.00" type="number">
+              </mat-form-field>
+            </div>
+
+            <div class="form-row">
+              <section class="radio-main-sec half-sec">
+                <section class="radio-sec">
+                  <span>Active :</span>
+                  <mat-checkbox formControlName="active"></mat-checkbox>
+                </section>
+              </section>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
