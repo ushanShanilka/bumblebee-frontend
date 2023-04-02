@@ -4,6 +4,8 @@ import {MatSort} from "@angular/material/sort";
 import {MatPaginator} from "@angular/material/paginator";
 import {ProductService} from "../../../../core/service/product.service";
 import {formatCurrency} from "@angular/common";
+import {ProductDTO} from "../../../../core/dto/ProductDTO";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-products',
@@ -14,9 +16,10 @@ export class ProductsComponent implements OnInit {
 
   displayedColumns: string[] = [
     'id',
-    'name',
+    'productName',
     'description',
     'rating',
+    'stock',
     'price',
     'lastUpdatedBy',
     'status',
@@ -27,7 +30,8 @@ export class ProductsComponent implements OnInit {
   @ViewChild(MatSort) sort = new MatSort();
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  constructor(private productService:ProductService) { }
+  constructor(private productService:ProductService,
+              private router: Router) { }
 
   ngOnInit(): void {
     this.refreshTable("");
@@ -64,6 +68,10 @@ export class ProductsComponent implements OnInit {
 
   transformCurrency(value:string){
     return formatCurrency(+value,'en-US',"")
+  }
+
+  editProduct(dto: ProductDTO) {
+    this.router.navigate([`dashboard/product-management/all/${dto.id}`])
   }
 
 }

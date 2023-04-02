@@ -23,6 +23,17 @@ import { ToastrModule } from 'ngx-toastr';
 import {AlertAndErrorInterceptor} from "./core/interceptors/alert-and-error.interceptor";
 import {AuthInterceptor} from "./core/interceptors/auth.interceptor";
 import {ApiLoadingInterceptor} from "./core/interceptors/api-loading.interceptor";
+import {
+  apiKey,
+  appId,
+  authDomain,
+  measurementId,
+  messagingSenderId,
+  projectId,
+  storageBucket
+} from "../environments/private";
+import {AngularFireModule} from "@angular/fire/compat";
+import {AngularFireStorageModule} from "@angular/fire/compat/storage";
 
 @NgModule({
   declarations: [
@@ -48,6 +59,16 @@ import {ApiLoadingInterceptor} from "./core/interceptors/api-loading.interceptor
     MatFormFieldModule,
     BrowserAnimationsModule, // required animations module
     ToastrModule.forRoot({ timeOut: 3000 }),
+    AngularFireModule.initializeApp({
+      apiKey: apiKey,
+      authDomain: authDomain,
+      projectId: projectId,
+      storageBucket: storageBucket,
+      messagingSenderId: messagingSenderId,
+      appId: appId,
+      measurementId: measurementId
+    }),
+    AngularFireStorageModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AlertAndErrorInterceptor, multi: true },

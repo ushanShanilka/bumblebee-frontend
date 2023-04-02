@@ -3,14 +3,18 @@
     <span>{{formMode.slice(0,1)+formMode.slice(1).toLowerCase()}} User</span>
 
     <div class="button-row">
-      <button *ngIf="formMode==='CREATE'" matTooltip="Save" mat-raised-button type="submit" (click)="onAction()"
+      <button *ngIf="formMode==='CREATE' && !apiResponse" matTooltip="Save" mat-raised-button type="submit" (click)="onAction()"
               color="primary"><mat-icon>save</mat-icon>Save</button>
-      <button *ngIf="formMode==='CREATE'" matTooltip="Clear Form" type="reset" (click)="clear()"
+      <button *ngIf="formMode==='CREATE' && !apiResponse" matTooltip="Clear Form" type="reset" (click)="clear()"
               mat-raised-button><mat-icon>clear_all</mat-icon>Clear</button>
-      <button *ngIf="formMode==='UPDATE'" matTooltip="Update" mat-raised-button type="submit" (click)="onAction()"
+      <button *ngIf="formMode==='UPDATE' && !apiResponse" matTooltip="Update" mat-raised-button type="submit"
+              (click)="onAction()"
               color="primary"><mat-icon>update</mat-icon>Update</button>
-      <button *ngIf="formMode==='UPDATE'" matTooltip="Cancel" mat-raised-button
-              type="reset"><mat-icon>cancel</mat-icon>Cancel</button>
+      <button *ngIf="formMode==='UPDATE' && !apiResponse" matTooltip="Cancel" mat-raised-button
+              (click)="cancel()" type="reset"><mat-icon>cancel</mat-icon>Cancel</button>
+      <button *ngIf="apiResponse" color="primary" mat-button>
+        <mat-spinner diameter="20"></mat-spinner>
+      </button>
 
     </div>
   </div>
@@ -27,18 +31,21 @@
             <div class="img-area tooltip" >
               <img class="tooltip" width="70%" src="{{preview[0]}}" alt="" (click)="browseFile(0)">
               <input (change)="uploadFileHandel($event)" value="" type="file" hidden id="fileSelector">
+              <mat-icon *ngIf="preview[0] != defaultImg" (click)="removeImage(0)">cancel</mat-icon>
             </div>
           </div>
           <div>
             <div class="img-area tooltip">
               <img class="tooltip" width="70%" src="{{preview[1]}}" alt="" (click)="browseFile(1)">
               <input (change)="uploadFileHandel($event)" value="" type="file" hidden id="fileSelector">
+              <mat-icon *ngIf="preview[1] != defaultImg" (click)="removeImage(1)">cancel</mat-icon>
             </div>
           </div>
           <div>
             <div class="img-area tooltip">
               <img class="tooltip" width="70%" src="{{preview[2]}}" alt="" (click)="browseFile(2)">
               <input (change)="uploadFileHandel($event)" value="" type="file" hidden id="fileSelector">
+              <mat-icon *ngIf="preview[2] != defaultImg" (click)="removeImage(2)">cancel</mat-icon>
             </div>
           </div>
         </div>
@@ -47,18 +54,21 @@
             <div class="img-area tooltip" >
               <img class="tooltip" width="70%" src="{{preview[3]}}" alt="" (click)="browseFile(3)">
               <input (change)="uploadFileHandel($event)" value="" type="file" hidden id="fileSelector">
+              <mat-icon *ngIf="preview[3] != defaultImg" (click)="removeImage(3)">cancel</mat-icon>
             </div>
           </div>
           <div>
             <div class="img-area tooltip" >
               <img class="tooltip" width="70%" src="{{preview[4]}}" alt="" (click)="browseFile(4)">
               <input (change)="uploadFileHandel($event)" value="" type="file" hidden id="fileSelector">
+              <mat-icon *ngIf="preview[4] != defaultImg" (click)="removeImage(4)">cancel</mat-icon>
             </div>
           </div>
           <div>
             <div class="img-area tooltip" >
               <img class="tooltip" width="70%" src="{{preview[5]}}" alt="" (click)="browseFile(5)">
               <input (change)="uploadFileHandel($event)" value="" type="file" hidden id="fileSelector">
+              <mat-icon *ngIf="preview[5] != defaultImg" (click)="removeImage(5)">cancel</mat-icon>
             </div>
           </div>
         </div>
@@ -67,18 +77,21 @@
             <div class="img-area tooltip" >
               <img class="tooltip" width="70%" src="{{preview[6]}}" alt="" (click)="browseFile(6)">
               <input (change)="uploadFileHandel($event)" value="" type="file" hidden id="fileSelector">
+              <mat-icon *ngIf="preview[6] != defaultImg" (click)="removeImage(6)">cancel</mat-icon>
             </div>
           </div>
           <div>
             <div class="img-area tooltip" >
               <img class="tooltip" width="70%" src="{{preview[7]}}" alt="" (click)="browseFile(7)">
               <input (change)="uploadFileHandel($event)" value="" type="file" hidden id="fileSelector">
+              <mat-icon *ngIf="preview[7] != defaultImg" (click)="removeImage(7)">cancel</mat-icon>
             </div>
           </div>
           <div>
             <div class="img-area tooltip" >
               <img class="tooltip" width="70%" src="{{preview[8]}}" alt="" (click)="browseFile(8)">
               <input (change)="uploadFileHandel($event)" value="" type="file" hidden id="fileSelector">
+              <mat-icon *ngIf="preview[8] != defaultImg" (click)="removeImage(8)">cancel</mat-icon>
             </div>
           </div>
         </div>

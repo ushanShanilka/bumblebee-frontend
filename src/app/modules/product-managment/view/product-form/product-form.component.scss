@@ -7,8 +7,8 @@
       }
 
       .sub-menu{
-        margin: 5px 0px 5px 25px;
-        width: 90% !important;
+        margin: 5px 0px 5px 18px;
+        width: 94% !important;
       }
 
       .left{
@@ -18,7 +18,7 @@
           display: flex;
           div{
             margin: 10px auto 5px auto;
-            //height: 120px;
+            height: 120px;
           }
 
           .img-area {
@@ -45,8 +45,17 @@
             }
           }
 
+          mat-icon{
+            position: absolute;
+            display: none;
+          }
+
           .img-area:hover {
             opacity: 0.5;
+            mat-icon{
+              display: block;
+              cursor: pointer;
+            }
           }
         }
         div{
@@ -61,7 +70,7 @@
             margin: 20px auto 5px 20px;
 
             div{
-              width: 95%;
+              width: 98%;
             }
           }
         }

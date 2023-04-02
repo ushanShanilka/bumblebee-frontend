@@ -16,6 +16,7 @@ import {MatIconModule} from "@angular/material/icon";
 import { MatSelectModule } from '@angular/material/select';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import {MatButtonModule} from "@angular/material/button";
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 
 
 @NgModule({
@@ -24,21 +25,22 @@ import {MatButtonModule} from "@angular/material/button";
     ProductFormComponent,
     ProductsComponent
   ],
-  imports: [
-    CommonModule,
-    ProductManagmentRoutingModule,
-    MatPaginatorModule,
-    MatSortModule,
-    MatProgressBarModule,
-    MatTableModule,
-    MatTooltipModule,
-    MatInputModule,
-    FormsModule,
-    ReactiveFormsModule,
-    MatIconModule,
-    MatSelectModule,
-    MatCheckboxModule,
-    MatButtonModule
-  ]
+    imports: [
+        CommonModule,
+        ProductManagmentRoutingModule,
+        MatPaginatorModule,
+        MatSortModule,
+        MatProgressBarModule,
+        MatTableModule,
+        MatTooltipModule,
+        MatInputModule,
+        FormsModule,
+        ReactiveFormsModule,
+        MatIconModule,
+        MatSelectModule,
+        MatCheckboxModule,
+        MatButtonModule,
+        MatProgressSpinnerModule
+    ]
 })
 export class ProductManagementModule { }

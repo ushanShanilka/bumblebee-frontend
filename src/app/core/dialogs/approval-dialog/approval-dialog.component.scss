@@ -1,77 +1,67 @@
-
+.mat-dialog-container {
+  margin: auto !important;
+  width: 60% !important;
+}
 hr {
   width: 80%;
 }
 
-.main {
+.alt-main {
   width: 100%;
   height: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center;
   padding-top: 15px;
-  //padding-bottom: 10px;
 
   .content {
-    display: flex;
-    flex-direction: column;
+
+    .main-content{
+      display: flex;
+      flex-direction: row;
+    }
+
+    img {
+      width: 25%;
+      margin-right: 15px;
+      margin-left: 15px;
+    }
+
     align-items: center;
-    justify-content: space-around;
   }
 
-
-
-  .title {
+  .alt-title {
     display: flex;
-    justify-content: center;
-    align-items: center;
     font-weight: 500;
-    font-size: 1.5rem;
+    font-size: 1.0rem;
     padding-bottom: 10px;
-    text-align: center;
-
-  }
-
-  .image {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    padding: 10px 0;
-  }
-
-  .image img {
-    height: 30%;
-    width: 30%;
   }
 
   .massage {
     display: flex;
     justify-content: center;
-    text-align: center;
     align-items: center;
-    font-size: 1rem;
+    font-size: 0.9rem;
     word-break: break-word;
-    width: 80%;
   }
 
   .buttons {
     width: 100%;
     display: flex;
-    // justify-content: center;
 
-    justify-content: space-around;    //padding-bottom: 10px;
+    button{
+      width: 45%;
+    }
 
+    justify-content: space-around;
   }
 }
 
 .delete {
   .buttons {
-    // flex-direction: row-reverse;
-    // justify-content: flex-end;
 
-    button {
-      margin-left: 5px;
-    }
+    //button {
+    //  margin-left: 5px;
+    //}
 
     #btnYes {
       background-color: #ff3b3b;
@@ -99,13 +89,13 @@ hr {
     font-weight: 500;
     font-size: 1.5rem;
     padding-bottom: 10px;
-    text-align: center;
+    //text-align: center;
   }
 
   .massage {
     display: flex;
     justify-content: center;
-    text-align: center;
+    //text-align: center;
     align-items: center;
     font-size: 1rem;
     word-break: break-word;
@@ -118,6 +108,7 @@ hr {
     justify-content: center;
     align-items: center;
     //padding-bottom: 10px;
+    //margin-bottom: 10px;
     button {
       margin-left: 5px;
     }
