@@ -6,6 +6,8 @@ import {ProductService} from "../../../../core/service/product.service";
 import {formatCurrency} from "@angular/common";
 import {ProductDTO} from "../../../../core/dto/ProductDTO";
 import {Router} from "@angular/router";
+import {ExportAsConfig, ExportAsService} from "ngx-export-as";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-products',
@@ -33,12 +35,28 @@ export class ProductsComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   constructor(private productService:ProductService,
-              private router: Router) { }
+              private router: Router,
+              private exportAsService:ExportAsService,
+              private  toasterService:ToastrService) { }
 
   ngOnInit(): void {
     this.refreshTable("");
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
+  }
+
+  exportAsConfig: ExportAsConfig = {
+    type: 'xlsx', // the type you want to download
+    elementIdOrContent: 'content', // the id of html/table element
+  };
+
+  public export(format: any): void {
+    this.exportAsConfig.type = format;
+    this.exportAsService
+      .save(this.exportAsConfig, 'Products')
+      .subscribe(() => {
+        this.toasterService.success("Success!")
+      });
   }
 
   applyFilter(event: Event) {

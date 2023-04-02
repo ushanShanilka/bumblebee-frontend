@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ApprovalDialogComponent} from "../dialogs/approval-dialog/approval-dialog.component";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {UntypedFormBuilder, UntypedFormGroup, Validators} from "@angular/forms";
 import {AuthService} from "../auth/auth.service";
 import {Router} from "@angular/router";
 import { MatDialog } from '@angular/material/dialog';
@@ -15,10 +15,10 @@ import {ToastrService} from "ngx-toastr";
 })
 export class LoginComponent implements OnInit {
 
-  loginDetailsForm!: FormGroup;
+  loginDetailsForm!: UntypedFormGroup;
 
   apiResponse=false;
-  constructor(private formBuilder:FormBuilder,
+  constructor(private formBuilder:UntypedFormBuilder,
               private router: Router,
               private dialog:MatDialog,
               private authService:AuthService,

@@ -3,6 +3,9 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { UsersService } from '../../../../core/service/users.service';
+import {ExportAsConfig, ExportAsService} from "ngx-export-as";
+import {ToastrService} from "ngx-toastr";
+import {formatCurrency} from "@angular/common";
 
 @Component({
   selector: 'app-users',
@@ -12,11 +15,14 @@ import { UsersService } from '../../../../core/service/users.service';
 export class UsersComponent implements OnInit {
   displayedColumns: string[] = [
     'id',
-    'firstName',
-    'lastName',
+    'fullName',
+    'dateOfBirth',
     'nic',
     'phoneNumber',
     'address',
+    'loanBalance',
+    'usedAmount',
+    'plan',
     'countryCode',
     'status',
     'edit',
@@ -26,7 +32,9 @@ export class UsersComponent implements OnInit {
   @ViewChild(MatSort) sort = new MatSort();
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  constructor(private usersService: UsersService) {}
+  constructor(private usersService: UsersService,
+              private exportAsService:ExportAsService,
+              private toasterService:ToastrService) {}
 
   ngAfterViewInit(): void {
     this.refreshTable();
@@ -35,6 +43,20 @@ export class UsersComponent implements OnInit {
   }
 
   ngOnInit(): void {}
+
+  exportAsConfig: ExportAsConfig = {
+    type: 'xlsx', // the type you want to download
+    elementIdOrContent: 'content', // the id of html/table element
+  };
+
+  public export(format: any): void {
+    this.exportAsConfig.type = format;
+    this.exportAsService
+      .save(this.exportAsConfig, 'Users')
+      .subscribe(() => {
+        this.toasterService.success("Success!")
+      });
+  }
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -61,5 +83,9 @@ export class UsersComponent implements OnInit {
         console.log(error);
       }
     );
+  }
+
+  transformCurrency(value:string){
+    return formatCurrency(+value,'en-US',"")
   }
 }

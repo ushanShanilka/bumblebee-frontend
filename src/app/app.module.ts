@@ -34,6 +34,7 @@ import {
 } from "../environments/private";
 import {AngularFireModule} from "@angular/fire/compat";
 import {AngularFireStorageModule} from "@angular/fire/compat/storage";
+import { ExportAsModule } from 'ngx-export-as';
 
 @NgModule({
   declarations: [
@@ -68,7 +69,8 @@ import {AngularFireStorageModule} from "@angular/fire/compat/storage";
       appId: appId,
       measurementId: measurementId
     }),
-    AngularFireStorageModule
+    AngularFireStorageModule,
+    ExportAsModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AlertAndErrorInterceptor, multi: true },

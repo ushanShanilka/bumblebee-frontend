@@ -1,10 +1,8 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {BrandsDTO} from "../../../../core/dto/BrandsDTO";
+import {UntypedFormBuilder, UntypedFormGroup, Validators} from "@angular/forms";
 import {MatTableDataSource} from "@angular/material/table";
 import {MatSort} from "@angular/material/sort";
 import {MatPaginator} from "@angular/material/paginator";
-import {BrandService} from "../../../../core/service/brand.service";
 import {ToastrService} from "ngx-toastr";
 import {ActivatedRoute, Router} from "@angular/router";
 import {MatDialog} from "@angular/material/dialog";
@@ -13,6 +11,7 @@ import {ApprovalDialogComponent} from "../../../../core/dialogs/approval-dialog/
 import {ApprovalDialogConfig} from "../../../../core/dialogs/approval-dialog/ApprovalDialogConfig";
 import {CategoryDTO} from "../../../../core/dto/CategoryDTO";
 import {CategoryService} from "../../../../core/service/category.service";
+import {ExportAsConfig, ExportAsService} from "ngx-export-as";
 
 @Component({
   selector: 'app-category-form',
@@ -22,7 +21,7 @@ import {CategoryService} from "../../../../core/service/category.service";
 export class CategoryFormComponent implements OnInit {
 
   formMode: 'CREATE' | 'UPDATE' = 'CREATE';
-  categoryForm!: FormGroup;
+  categoryForm!: UntypedFormGroup;
   apiResponse = false;
 
   selectedCategory = new CategoryDTO(
@@ -42,7 +41,8 @@ export class CategoryFormComponent implements OnInit {
               private router: Router,
               private dialog: MatDialog,
               private activatedRoute: ActivatedRoute,
-              private formBuilder: FormBuilder) { }
+              private formBuilder: UntypedFormBuilder,
+              private exportAsService:ExportAsService) { }
 
   ngOnInit(): void {
     this.getAllCategory();
@@ -94,18 +94,18 @@ export class CategoryFormComponent implements OnInit {
     }
   }
 
-  // exportAsConfig: ExportAsConfig = {
-  //   type: 'xlsx', // the type you want to download
-  //   elementIdOrContent: 'content', // the id of html/table element
-  // };
+  exportAsConfig: ExportAsConfig = {
+    type: 'xlsx', // the type you want to download
+    elementIdOrContent: 'content', // the id of html/table element
+  };
 
   public export(format: any): void {
-    // this.exportAsConfig.type = format;
-    // this.exportAsService
-    //   .save(this.exportAsConfig, 'brands')
-    //   .subscribe(() => {
-    //     this.toasterService.success("Success!")
-    //   });
+    this.exportAsConfig.type = format;
+    this.exportAsService
+      .save(this.exportAsConfig, 'category')
+      .subscribe(() => {
+        this.toasterService.success("Success!")
+      });
   }
 
   onAction() {

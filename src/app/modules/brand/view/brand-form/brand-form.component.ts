@@ -1,5 +1,5 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {UntypedFormBuilder, UntypedFormGroup, Validators} from "@angular/forms";
 import {MatTableDataSource} from "@angular/material/table";
 import {MatSort} from "@angular/material/sort";
 import {MatPaginator} from "@angular/material/paginator";
@@ -13,6 +13,7 @@ import {MatDialog} from "@angular/material/dialog";
 import {Observable} from "rxjs";
 import {ProductDTO} from "../../../../core/dto/ProductDTO";
 import {StockDTO} from "../../../../core/dto/StockDTO";
+import {ExportAsConfig, ExportAsService} from "ngx-export-as";
 
 @Component({
   selector: 'app-brand-form',
@@ -22,7 +23,7 @@ import {StockDTO} from "../../../../core/dto/StockDTO";
 export class BrandFormComponent implements OnInit {
 
   formMode: 'CREATE' | 'UPDATE' = 'CREATE';
-  brandForm!: FormGroup;
+  brandForm!: UntypedFormGroup;
   apiResponse = false;
 
   selectedBrand = new BrandsDTO(
@@ -42,7 +43,8 @@ export class BrandFormComponent implements OnInit {
               private router: Router,
               private dialog: MatDialog,
               private activatedRoute: ActivatedRoute,
-              private formBuilder: FormBuilder) { }
+              private formBuilder: UntypedFormBuilder,
+              private exportAsService:ExportAsService) { }
 
   ngOnInit(): void {
     this.getAllBrand();
@@ -95,18 +97,18 @@ export class BrandFormComponent implements OnInit {
     }
   }
 
-  // exportAsConfig: ExportAsConfig = {
-  //   type: 'xlsx', // the type you want to download
-  //   elementIdOrContent: 'content', // the id of html/table element
-  // };
+  exportAsConfig: ExportAsConfig = {
+    type: 'xlsx', // the type you want to download
+    elementIdOrContent: 'content', // the id of html/table element
+  };
 
   public export(format: any): void {
-    // this.exportAsConfig.type = format;
-    // this.exportAsService
-    //   .save(this.exportAsConfig, 'brands')
-    //   .subscribe(() => {
-    //     this.toasterService.success("Success!")
-    //   });
+    this.exportAsConfig.type = format;
+    this.exportAsService
+      .save(this.exportAsConfig, 'brands')
+      .subscribe(() => {
+        this.toasterService.success("Success!")
+      });
   }
 
   onAction() {

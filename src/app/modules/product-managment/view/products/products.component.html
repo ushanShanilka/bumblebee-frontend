@@ -6,6 +6,10 @@
   <div class="main-form">
     <div class="table-head">
       <div class="sec">
+        <button matTooltip="Export as Excel" mat-button value="Download PDF"
+                (click)="export('xlsx')">Excel</button>
+        <button matTooltip="Export as CSV" mat-button value="Download PDF" (click)="export('csv')">CSV</button>
+        <button matTooltip="Export as PDF" mat-button value="Download PDF" (click)="export('pdf')">PDF</button>
       </div>
 
       <div class="sec">
@@ -17,7 +21,7 @@
 
     </div>
 
-    <div class="tbl-sec">
+    <div id="content" #content class="tbl-sec">
       <table mat-table [dataSource]="dataSource" matSort>
         <ng-container matColumnDef="id">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ToastrService} from "ngx-toastr";
-import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators} from "@angular/forms";
 import {AngularFireStorage, AngularFireStorageReference, AngularFireUploadTask} from "@angular/fire/compat/storage";
 import {ProductDTO} from "../../../../core/dto/ProductDTO";
 import {StockDTO} from "../../../../core/dto/StockDTO";
@@ -25,7 +25,7 @@ import {CategoryService} from "../../../../core/service/category.service";
 export class ProductFormComponent implements OnInit {
 
   formMode: 'CREATE' | 'UPDATE' = 'CREATE';
-  productForm!: FormGroup;
+  productForm!: UntypedFormGroup;
   apiResponse = false;
 
 
@@ -55,7 +55,7 @@ export class ProductFormComponent implements OnInit {
     [],
   )
 
-  brand = new FormControl('', Validators.required);
+  brand = new UntypedFormControl('', Validators.required);
   brandDTO: BrandsDTO[] = [];
   brandFilteredOptions!: BrandsDTO[];
   selectedBrand = new BrandsDTO(
@@ -64,7 +64,7 @@ export class ProductFormComponent implements OnInit {
     0
   );
 
-  category = new FormControl('', Validators.required);
+  category = new UntypedFormControl('', Validators.required);
   categoryDTO: CategoryDTO[] = [];
   categoryFilteredOptions!: CategoryDTO[];
   selectedCategory = new CategoryDTO(
@@ -74,7 +74,7 @@ export class ProductFormComponent implements OnInit {
   );
 
   constructor(private toasterService:ToastrService,
-              private formBuilder: FormBuilder,
+              private formBuilder: UntypedFormBuilder,
               private fireStorage: AngularFireStorage,
               private activatedRoute: ActivatedRoute,
               private router: Router,

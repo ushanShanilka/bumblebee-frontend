@@ -13,22 +13,24 @@ import { UsersComponent } from './view/users/users.component';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
+import {MatButtonModule} from "@angular/material/button";
 
 @NgModule({
   declarations: [UserManagmentComponent, UsersComponent],
-  imports: [
-    CommonModule,
-    UserManagmentRoutingModule,
-    MatTabsModule,
-    MatPaginatorModule,
-    MatSortModule,
-    MatProgressBarModule,
-    MatTableModule,
-    MatTooltipModule,
-    MatInputModule,
-    FormsModule,
-    ReactiveFormsModule,
-    MatIconModule,
-  ],
+    imports: [
+        CommonModule,
+        UserManagmentRoutingModule,
+        MatTabsModule,
+        MatPaginatorModule,
+        MatSortModule,
+        MatProgressBarModule,
+        MatTableModule,
+        MatTooltipModule,
+        MatInputModule,
+        FormsModule,
+        ReactiveFormsModule,
+        MatIconModule,
+        MatButtonModule,
+    ],
 })
 export class UserManagmentModule {}
