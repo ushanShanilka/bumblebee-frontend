@@ -75,7 +75,7 @@
 
               <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
               <tr mat-row *matRowDef="let row; columns: displayedColumns;"
-                  [ngStyle]="row.status=='No'?{'background-color':'#edf5fd'} : {'background-color': 'white'} && row.farmerCode=='Processing'?{'background-color':'#FFFF33'} : {'background-color': 'white'}">
+                  [ngStyle]="row.status==2?{'background-color':'#edf5fd'} : null">
               </tr>
 
               <tr class="mat-row emty-table" *matNoDataRow>

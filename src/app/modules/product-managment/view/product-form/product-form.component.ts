@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {ToastrService} from "ngx-toastr";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {AngularFireStorage, AngularFireStorageReference, AngularFireUploadTask} from "@angular/fire/compat/storage";
 import {ProductDTO} from "../../../../core/dto/ProductDTO";
 import {StockDTO} from "../../../../core/dto/StockDTO";
-import {Observable} from "rxjs";
+import {map, Observable} from "rxjs";
 import {ActivatedRoute, Router} from "@angular/router";
 import {ProductService} from "../../../../core/service/product.service";
 import {ProductHasImageDTO} from "../../../../core/dto/ProductHasImageDTO";
@@ -12,6 +12,10 @@ import {ApprovalDialogConfig} from "../../../../core/dialogs/approval-dialog/App
 import {ApprovalDialogComponent} from "../../../../core/dialogs/approval-dialog/approval-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
 import {ProductImagesService} from "../../../../core/service/product-images.service";
+import {CategoryDTO} from "../../../../core/dto/CategoryDTO";
+import {BrandsDTO} from "../../../../core/dto/BrandsDTO";
+import {BrandService} from "../../../../core/service/brand.service";
+import {CategoryService} from "../../../../core/service/category.service";
 
 @Component({
   selector: 'app-product-form',
@@ -44,11 +48,30 @@ export class ProductFormComponent implements OnInit {
     '',
     0,
     0,
-    '',
+    0,
+    new CategoryDTO(0,'',0),
+    new BrandsDTO(0,'',0),
     new StockDTO(0,0,0),
     [],
   )
 
+  brand = new FormControl('', Validators.required);
+  brandDTO: BrandsDTO[] = [];
+  brandFilteredOptions!: BrandsDTO[];
+  selectedBrand = new BrandsDTO(
+    0,
+    '',
+    0
+  );
+
+  category = new FormControl('', Validators.required);
+  categoryDTO: CategoryDTO[] = [];
+  categoryFilteredOptions!: CategoryDTO[];
+  selectedCategory = new CategoryDTO(
+    0,
+    '',
+    0
+  );
 
   constructor(private toasterService:ToastrService,
               private formBuilder: FormBuilder,
@@ -57,10 +80,14 @@ export class ProductFormComponent implements OnInit {
               private router: Router,
               private productService:ProductService,
               private dialog: MatDialog,
-              private productImagesService:ProductImagesService) { }
+              private productImagesService:ProductImagesService,
+              private brandService:BrandService,
+              private categoryService:CategoryService) { }
 
   ngOnInit(): void {
     this.enableDefaultImage();
+    this.getAllBrands();
+    this.getAllCategory();
 
     this.productForm = this.formBuilder.group({
       productName: ["", Validators.required],
@@ -83,11 +110,15 @@ export class ProductFormComponent implements OnInit {
         this.productForm.get('rating')?.setValue(this.selectedProduct.rating)
         this.productForm.get('price')?.setValue(this.selectedProduct.price)
 
-        if (this.selectedProduct.status == 'Active'){
+        if (this.selectedProduct.status == 1){
           this.productForm.get('active')?.setValue(true)
         }
 
-        console.log(this.selectedProduct.productHasImageDTOS)
+        this.selectedBrand = this.selectedProduct.brandsDTO
+        this.brand.setValue(this.selectedBrand.brandName)
+
+        this.selectedCategory = this.selectedProduct.categoryDTO
+        this.category.setValue(this.selectedCategory.categoryName)
 
         this.selectedProduct.productHasImageDTOS.forEach((value, index) => {
           this.preview[index] = value.url
@@ -96,6 +127,49 @@ export class ProductFormComponent implements OnInit {
 
         this.formMode = 'UPDATE';
       }
+    })
+
+
+    this.brand.valueChanges.pipe(
+      map(value => this.brandFilter(value || '')),
+    ).subscribe(val => this.brandFilteredOptions = val);
+
+    this.category.valueChanges.pipe(
+      map(value => this.categoryFilter(value || '')),
+    ).subscribe(val => this.categoryFilteredOptions = val);
+  }
+
+  private brandFilter(value: string): BrandsDTO[] {
+    const filterValue = String(value).toLowerCase();
+    return this.brandDTO.filter(option => String(option.brandName).toLowerCase().includes(filterValue));
+  }
+
+  private categoryFilter(value: string): CategoryDTO[] {
+    const filterValue = String(value).toLowerCase();
+    return this.categoryDTO.filter(option => String(option.categoryName).toLowerCase().includes(filterValue));
+  }
+
+  getAllBrands(){
+    this.brandService.getAll('active').subscribe(res => {
+      if (res.data){
+        this.brandFilteredOptions = res.data
+        this.brandDTO = res.data
+
+        console.log(this.brandFilteredOptions)
+      }
+    }, error => {
+      console.log(error)
+    })
+  }
+
+  getAllCategory(){
+    this.categoryService.getAll('active').subscribe(res => {
+      if (res.data){
+        this.categoryFilteredOptions = res.data
+        this.categoryDTO = res.data
+      }
+    }, error => {
+      console.log(error)
     })
   }
 
@@ -188,23 +262,39 @@ export class ProductFormComponent implements OnInit {
 
   onAction() {
     if (this.productForm.valid){
-      this.apiResponse = true;
-      let sub: Observable<any>;
-      if (this.formMode === 'CREATE') {
-        sub = this.createProduct();
-      } else {
-        sub = this.updateProduct();
-      }
-      sub.subscribe(res => {
-        this.apiResponse = false;
-        if (res.code === 201 || res.code === 204) {
-          this.productForm.reset();
-          this.router.navigate(['..'], { relativeTo: this.activatedRoute })
+      if (this.selectedBrand.brandId != 0 && this.brand.value == this.selectedBrand.brandName){
+        if (this.selectedCategory.categoryId != 0 && this.category.value == this.selectedCategory.categoryName){
+          if(this.uploadedImages.length > 0){
+            this.apiResponse = true;
+            let sub: Observable<any>;
+            if (this.formMode === 'CREATE') {
+              sub = this.createProduct();
+            } else {
+              sub = this.updateProduct();
+            }
+            sub.subscribe(res => {
+              this.apiResponse = false;
+              if (res.code === 201 || res.code === 204) {
+                this.productForm.reset();
+                this.router.navigate(['..'], { relativeTo: this.activatedRoute })
+              }
+            }, error => {
+              console.log(error)
+              this.apiResponse = false;
+            })
+          }else {
+            this.toasterService.error("Please select Images")
+          }
+        }else {
+          this.toasterService.error("Invalid category")
+          this.category.reset()
+          this.category.markAllAsTouched()
         }
-      }, error => {
-        console.log(error)
-        this.apiResponse = false;
-      })
+      }else {
+        this.toasterService.error("Invalid Brand")
+        this.brand.reset()
+        this.brand.markAllAsTouched()
+      }
     }else {
       this.productForm.markAllAsTouched()
       this.toasterService.error("required fields missing")
@@ -251,6 +341,8 @@ export class ProductFormComponent implements OnInit {
       this.productForm.get('rating')?.value,
       this.productForm.get('price')?.value,
       this.productForm.get('active')?.value,
+      this.selectedCategory,
+      this.selectedBrand,
       new StockDTO(
         0,
         0,
@@ -269,6 +361,8 @@ export class ProductFormComponent implements OnInit {
       this.productForm.get('rating')?.value,
       this.productForm.get('price')?.value,
       this.productForm.get('active')?.value,
+      this.selectedCategory,
+      this.selectedBrand,
       this.selectedProduct.stock,
       this.uploadedImages,
     ));

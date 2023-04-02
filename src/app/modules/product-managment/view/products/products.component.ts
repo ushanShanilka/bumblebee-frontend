@@ -17,6 +17,8 @@ export class ProductsComponent implements OnInit {
   displayedColumns: string[] = [
     'id',
     'productName',
+    'category',
+    'brand',
     'description',
     'rating',
     'stock',

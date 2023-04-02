@@ -1,0 +1,109 @@
+<div class="main">
+  <div class="title">
+    <span>{{formMode.slice(0,1)+formMode.slice(1).toLowerCase()}} Brand</span>
+
+    <div class="button-row">
+      <button *ngIf="formMode==='CREATE'" matTooltip="Save" mat-raised-button type="submit" (click)="onAction()"
+              color="primary"><mat-icon>save</mat-icon>Save</button>
+      <button *ngIf="formMode==='CREATE'" matTooltip="Clear Form" type="reset" (click)="clear()"
+              mat-raised-button><mat-icon>clear_all</mat-icon>Clear</button>
+      <button *ngIf="formMode==='UPDATE'" matTooltip="Update" mat-raised-button type="submit" (click)="onAction()"
+              color="primary"><mat-icon>update</mat-icon>Update</button>
+      <button *ngIf="formMode==='UPDATE'" matTooltip="Cancel" mat-raised-button (click)="cancel()"
+              type="reset"><mat-icon>cancel</mat-icon>Cancel</button>
+
+    </div>
+  </div>
+  <div class="main-form">
+    <div>
+      <form [formGroup]="brandForm">
+        <div class="form-row">
+          <mat-form-field appearance="outline">
+            <mat-label>Brand Name</mat-label>
+            <input formControlName="brandName" matInput placeholder="Ex. ">
+          </mat-form-field>
+
+        </div>
+
+        <div class="form-row">
+          <section class="radio-main-sec half-sec">
+            <section class="radio-sec">
+              <span>Active :</span>
+              <mat-checkbox formControlName="active"></mat-checkbox>
+            </section>
+          </section>
+        </div>
+      </form>
+    </div>
+
+    <hr>
+
+      <div class="table-head">
+
+        <div class="sec">
+          <button matTooltip="Export as Excel" mat-button value="Download PDF"
+                  (click)="export('xlsx')">Excel</button>
+          <button matTooltip="Export as CSV" mat-button value="Download PDF" (click)="export('csv')">CSV</button>
+          <button matTooltip="Export as PDF" mat-button value="Download PDF" (click)="export('pdf')">PDF</button>
+        </div>
+
+        <div class="sec">
+          <mat-form-field appearance="standard">
+            <mat-label>Filter</mat-label>
+            <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Abc.." #input>
+          </mat-form-field>
+        </div>
+
+      </div>
+
+      <div id="content" #content class="tbl-sec">
+        <table id="contentData" #contentData mat-table [dataSource]="dataSource" matSort>
+          <ng-container matColumnDef="brandId">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Brand Id </th>
+            <td mat-cell *matCellDef="let element"> {{element.brandId}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="brandName">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Brand Name </th>
+            <td mat-cell *matCellDef="let element"> {{element.brandName}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="lastUpdatedBy">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Last Updated By </th>
+            <td mat-cell *matCellDef="let element"> {{element.lastUpdatedBy}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
+            <td mat-cell *matCellDef="let element"> {{element.status==1? 'Active' : "Inactive"}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="edit">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Edit </th>
+            <td mat-cell *matCellDef="let element">
+              <div>
+                <mat-icon matTooltip="Edit" (click)="edit(element)">edit</mat-icon>
+              </div>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+              [ngStyle]="row.status==2?{'background-color':'#edf5fd'} : null">
+          </tr>
+
+          <!-- Row shown when there is no matching data. -->
+          <tr class="mat-row emty-table" *matNoDataRow>
+            <td class="mat-cell" colspan="12">No data matching the filter "{{input.value}}"</td>
+          </tr>
+
+          <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell" [colSpan]="displayedColumns.length">
+              <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <mat-paginator [pageSizeOptions]="[10, 25, 40, 100]" aria-label="Select page of Farmers"></mat-paginator>
+    </div>
+</div>

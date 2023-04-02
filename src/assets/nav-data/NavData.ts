@@ -39,4 +39,30 @@ export const NavData: MenuDTO[] = [
       },
     ],
   },
+  {
+    menuName: 'Category Management',
+    url: '/dashboard/category/',
+    icon: 'category',
+    list: [
+      {
+        menuName: 'Add',
+        url: '/dashboard/category/add',
+        icon: 'add',
+        list: [],
+      },
+    ],
+  },
+  {
+    menuName: 'Brand Management',
+    url: '/dashboard/brand/',
+    icon: 'workspace_premium',
+    list: [
+      {
+        menuName: 'Add',
+        url: '/dashboard/brand/add',
+        icon: 'add',
+        list: [],
+      },
+    ],
+  },
 ];

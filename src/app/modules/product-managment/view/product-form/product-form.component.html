@@ -1,6 +1,6 @@
 <div class="main">
   <div class="title">
-    <span>{{formMode.slice(0,1)+formMode.slice(1).toLowerCase()}} User</span>
+    <span>{{formMode.slice(0,1)+formMode.slice(1).toLowerCase()}} Product</span>
 
     <div class="button-row">
       <button *ngIf="formMode==='CREATE' && !apiResponse" matTooltip="Save" mat-raised-button type="submit" (click)="onAction()"
@@ -113,6 +113,34 @@
               <mat-form-field appearance="outline">
                 <mat-label>QTY</mat-label>
                 <input formControlName="qty" type="number" matInput placeholder="Ex. 100" value="">
+              </mat-form-field>
+            </div>
+
+            <div class="form-row">
+              <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Brand</mat-label>
+                <input type="text" placeholder="Pick one" aria-label="Brand" matInput
+                       [formControl]="brand" [matAutocomplete]="autofb" >
+                <mat-autocomplete autoActiveFirstOption #autofb="matAutocomplete">
+                  <mat-option *ngFor="let option of brandFilteredOptions"
+                              [value]="option.brandName"
+                              (click)="this.selectedBrand=option">
+                    {{option.brandName}}
+                  </mat-option>
+                </mat-autocomplete>
+              </mat-form-field>
+
+              <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Category</mat-label>
+                <input type="text" placeholder="Pick one" aria-label="Category" matInput
+                       [formControl]="category" [matAutocomplete]="autofc" >
+                <mat-autocomplete autoActiveFirstOption #autofc="matAutocomplete">
+                  <mat-option *ngFor="let option of categoryFilteredOptions"
+                              [value]="option.categoryName"
+                              (click)="this.selectedCategory=option">
+                    {{option.categoryName}}
+                  </mat-option>
+                </mat-autocomplete>
               </mat-form-field>
             </div>
 

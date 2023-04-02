@@ -21,6 +21,8 @@ const routes: Routes = [
             (m) => m.ProductManagementModule
           ),
       },
+      { path: 'category', loadChildren: () => import('../../modules/category/category.module').then(m => m.CategoryModule) },
+      { path: 'brand', loadChildren: () => import('../../modules/brand/brand.module').then(m => m.BrandModule) },
     ],
   },
 ];
