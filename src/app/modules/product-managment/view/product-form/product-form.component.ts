@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import {ToastrService} from "ngx-toastr";
-import {UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators} from "@angular/forms";
+import {
+  FormBuilder,
+  FormGroup,
+  UntypedFormControl,
+  Validators
+} from "@angular/forms";
 import {AngularFireStorage, AngularFireStorageReference, AngularFireUploadTask} from "@angular/fire/compat/storage";
 import {ProductDTO} from "../../../../core/dto/ProductDTO";
 import {StockDTO} from "../../../../core/dto/StockDTO";
@@ -25,7 +30,7 @@ import {CategoryService} from "../../../../core/service/category.service";
 export class ProductFormComponent implements OnInit {
 
   formMode: 'CREATE' | 'UPDATE' = 'CREATE';
-  productForm!: UntypedFormGroup;
+  productForm!: FormGroup;
   apiResponse = false;
 
 
@@ -74,7 +79,7 @@ export class ProductFormComponent implements OnInit {
   );
 
   constructor(private toasterService:ToastrService,
-              private formBuilder: UntypedFormBuilder,
+              private formBuilder: FormBuilder,
               private fireStorage: AngularFireStorage,
               private activatedRoute: ActivatedRoute,
               private router: Router,
