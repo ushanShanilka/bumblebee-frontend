@@ -23,6 +23,13 @@ const routes: Routes = [
       },
       { path: 'category', loadChildren: () => import('../../modules/category/category.module').then(m => m.CategoryModule) },
       { path: 'brand', loadChildren: () => import('../../modules/brand/brand.module').then(m => m.BrandModule) },
+      {
+        path: 'admin-management',
+        loadChildren: () =>
+          import('../../modules/admin-management/admin-management.module').then(
+            (m) => m.AdminManagementModule
+          ),
+      },
     ],
   },
 ];

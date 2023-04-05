@@ -8,6 +8,7 @@ const routes: Routes = [
   {path: '', redirectTo: '/login', pathMatch: 'full'},
   {path: 'login', component: LoginComponent},
   {path: 'dashboard', loadChildren: () => import('./core/dashnoard/dashnoard.module').then(m => m.DashnoardModule),canActivate:[AuthGuard]},
+  { path: 'admin-management', loadChildren: () => import('./modules/admin-management/admin-management.module').then(m => m.AdminManagementModule) },
   {path: '**', component: PageNotFoundComponent}
 ];
 

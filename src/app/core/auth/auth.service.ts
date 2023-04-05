@@ -5,6 +5,7 @@ import {Router} from "@angular/router";
 import {BehaviorSubject, map, Observable} from "rxjs";
 import {AuthDTO} from "./AuthDTO";
 import {AuthenticationRequestDTO} from "../dto/AuthenticationRequestDTO";
+import {RegisterDTO} from "../dto/RegisterDTO";
 
 @Injectable({
   providedIn: 'root'
@@ -45,6 +46,10 @@ export class AuthService {
     sessionStorage.removeItem('currentUser');
     this.currentUserSubject.next(null);
     this.router.navigate(['/login']);
+  }
+
+  createAdmin(dto:RegisterDTO): Observable<any> {
+    return this.httpClient.post(this.url + '/admin', dto);
   }
 
 }

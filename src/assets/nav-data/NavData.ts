@@ -65,4 +65,23 @@ export const NavData: MenuDTO[] = [
       },
     ],
   },
+  {
+    menuName: 'Admin Management',
+    url: '/dashboard/admin-management/',
+    icon: 'admin_panel_settings',
+    list: [
+      {
+        menuName: 'View All',
+        url: '/dashboard/admin-management/all',
+        icon: 'visibility',
+        list: [],
+      },
+      {
+        menuName: 'Add',
+        url: '/dashboard/admin-management/add',
+        icon: 'add',
+        list: [],
+      },
+    ],
+  },
 ];

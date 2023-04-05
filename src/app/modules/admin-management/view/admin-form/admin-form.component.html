@@ -1,0 +1,94 @@
+<div class="main">
+  <div class="title">
+    <span>{{formMode.slice(0,1)+formMode.slice(1).toLowerCase()}} Admin</span>
+
+    <div class="button-row">
+      <button *ngIf="formMode==='CREATE'" matTooltip="Save" mat-raised-button type="submit" (click)="onAction()"
+              color="primary"><mat-icon>save</mat-icon>Save</button>
+      <button *ngIf="formMode==='CREATE'" matTooltip="Clear Form" type="reset" (click)="clear()"
+              mat-raised-button><mat-icon>clear_all</mat-icon>Clear</button>
+      <button *ngIf="formMode==='UPDATE'" matTooltip="Update" mat-raised-button type="submit" (click)="onAction()"
+              color="primary"><mat-icon>update</mat-icon>Update</button>
+      <button *ngIf="formMode==='UPDATE'" matTooltip="Cancel" mat-raised-button (click)="cancel()"
+              type="reset"><mat-icon>cancel</mat-icon>Cancel</button>
+
+    </div>
+  </div>
+  <div class="main-form">
+    <div>
+      <form [formGroup]="adminForm">
+        <div class="form-row">
+          <mat-form-field appearance="outline">
+            <mat-label>First Name</mat-label>
+            <input formControlName="firstName" matInput placeholder="Ex. ">
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Last Name</mat-label>
+            <input formControlName="lastName" matInput placeholder="Ex. ">
+          </mat-form-field>
+
+        </div>
+
+        <div class="form-row">
+          <mat-form-field appearance="outline">
+            <mat-label>Email</mat-label>
+            <input formControlName="email" type="email" matInput placeholder="Ex. ">
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Confirm Email</mat-label>
+            <input formControlName="confirmEmail" type="email" matInput placeholder="Ex. ">
+          </mat-form-field>
+
+        </div>
+
+        <div class="form-row">
+
+          <mat-form-field appearance="outline">
+            <mat-label>Country Code</mat-label>
+            <input formControlName="countryCode" matInput placeholder="Ex. " type="number">
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Phone Number</mat-label>
+            <input formControlName="phoneNumber" matInput placeholder="Ex. " type="number">
+          </mat-form-field>
+
+        </div>
+
+        <div class="form-row">
+
+          <mat-form-field appearance="outline">
+            <mat-label>Password</mat-label>
+            <input [required]="formMode=='CREATE'" formControlName="password" matInput placeholder="Ex. " type="password">
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Confirm Password</mat-label>
+            <input [required]="formMode=='CREATE'" formControlName="confirmPassword" matInput placeholder="Ex. "
+                   type="password">
+          </mat-form-field>
+
+        </div>
+
+        <div class="form-row">
+          <mat-form-field appearance="outline">
+            <mat-label>Date Of Birth</mat-label>
+            <input formControlName="dateOfBirth" type="date" matInput placeholder="Ex. ">
+          </mat-form-field>
+        </div>
+
+
+        <div class="form-row">
+          <section class="radio-main-sec half-sec">
+            <section class="radio-sec">
+              <span>Active :</span>
+              <mat-checkbox formControlName="active"></mat-checkbox>
+            </section>
+          </section>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
