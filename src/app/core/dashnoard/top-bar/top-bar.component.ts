@@ -11,9 +11,12 @@ export class TopBarComponent implements OnInit {
 
   public isMenuOpen = true;
   @Output() event = new EventEmitter<boolean>();
-  user: AuthDTO | undefined | null;
+  user!: AuthDTO;
 
-  constructor(private authenticationService:AuthService) {}
+  constructor(private authenticationService:AuthService) {
+    let parse = JSON.parse(sessionStorage.getItem('currentUser') as string);
+    this.user = parse
+  }
 
   ngOnInit(): void {}
 

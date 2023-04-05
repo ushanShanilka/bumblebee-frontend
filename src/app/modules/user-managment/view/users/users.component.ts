@@ -24,8 +24,7 @@ export class UsersComponent implements OnInit {
     'usedAmount',
     'plan',
     'countryCode',
-    'status',
-    'edit',
+    'status'
   ];
   dataSource = new MatTableDataSource();
 

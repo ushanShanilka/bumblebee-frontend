@@ -281,7 +281,11 @@ export class ProductFormComponent implements OnInit {
               this.apiResponse = false;
               if (res.code === 201 || res.code === 204) {
                 this.productForm.reset();
-                this.router.navigate(['..'], { relativeTo: this.activatedRoute })
+                if (this.formMode=="UPDATE"){
+                  this.router.navigate(['..'], { relativeTo: this.activatedRoute })
+                }else {
+                  this.router.navigate(['../all'], { relativeTo: this.activatedRoute })
+                }
               }
             }, error => {
               console.log(error)

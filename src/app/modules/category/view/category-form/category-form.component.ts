@@ -122,7 +122,6 @@ export class CategoryFormComponent implements OnInit {
         if (res.code === 201 || res.code === 204) {
           this.refreshTable();
           this.categoryForm.reset();
-          this.router.navigate(['..'], { relativeTo: this.activatedRoute })
         }
       }, error => {
         console.log(error)

@@ -125,7 +125,6 @@ export class BrandFormComponent implements OnInit {
         if (res.code === 201 || res.code === 204) {
           this.refreshTable();
           this.brandForm.reset();
-          this.router.navigate(['..'], { relativeTo: this.activatedRoute })
         }
       }, error => {
         console.log(error)
